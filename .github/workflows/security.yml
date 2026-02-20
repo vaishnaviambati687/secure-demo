@@ -9,14 +9,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v3
 
-      - name: Install Gitleaks
-        run: |
-          wget https://github.com/gitleaks/gitleaks/releases/latest/download/gitleaks-linux-amd64.tar.gz
-          tar -xzf gitleaks-linux-amd64.tar.gz
-          sudo mv gitleaks /usr/local/bin/
-
-      - name: Run Secret Scan
-        run: gitleaks detect --source . --exit-code 1
+      - name: Run Gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        with:
+          args: detect --no-git --source . --exit-code 1
